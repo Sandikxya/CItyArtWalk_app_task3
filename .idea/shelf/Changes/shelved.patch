@@ -1,0 +1,457 @@
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+new file mode 100644
+--- /dev/null	(date 1730953405975)
++++ b/.idea/compiler.xml	(date 1730953405975)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <bytecodeTargetLevel target="17" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1730952732847)
++++ b/.idea/.gitignore	(date 1730952732847)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1731043635733)
++++ b/.idea/misc.xml	(date 1731043635733)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/build/classes" />
++  </component>
++  <component name="ProjectType">
++    <option name="id" value="Android" />
++  </component>
++  <component name="VisualizationToolProject">
++    <option name="state">
++      <ProjectState>
++        <option name="scale" value="0.45" />
++      </ProjectState>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/kotlinc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/kotlinc.xml b/.idea/kotlinc.xml
+new file mode 100644
+--- /dev/null	(date 1730962304456)
++++ b/.idea/kotlinc.xml	(date 1730962304456)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="KotlinJpsPluginSettings">
++    <option name="version" value="1.9.0" />
++  </component>
++</project>
+\ No newline at end of file
+Index: app/src/main/java/com/example/cityartwalkapp/ViewArtworkActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/cityartwalkapp/ViewArtworkActivity.kt b/app/src/main/java/com/example/cityartwalkapp/ViewArtworkActivity.kt
+new file mode 100644
+--- /dev/null	(date 1731060165484)
++++ b/app/src/main/java/com/example/cityartwalkapp/ViewArtworkActivity.kt	(date 1731060165484)
+@@ -0,0 +1,37 @@
++package com.example.cityartwalkapp
++
++import android.os.Bundle
++import android.widget.Button
++import android.widget.TextView
++import androidx.appcompat.app.AppCompatActivity
++
++
++class ViewArtworkActivity : AppCompatActivity(){
++
++    private lateinit var titleTextView: TextView
++    private lateinit var addressTextView: TextView
++    private lateinit var deleteButton: Button
++
++    private lateinit var artwork: ViewArtworkActivity
++    private var position: Int = -1
++
++    // Initialize views
++    titleTextView = findViewById(R.id.titleTextView)
++    addressTextView = findViewById(R.id.addressTextView)
++    deleteButton = findViewById(R.id.deleteButton)
++
++    titleTextView.text = artwork.title
++    addresstextView.text = artwork.address
++
++    // Set up delete button action
++
++    deleteButton.setOnClickListener {
++        if (this.position != -1) {
++            artworkList.removeAt(position)
++            adapter.notifyItemRemoved(position)
++
++            finish()
++        }
++    }
++
++}
+Index: app/src/main/java/com/example/cityartwalkapp/MapsActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/cityartwalkapp/MapsActivity.kt b/app/src/main/java/com/example/cityartwalkapp/MapsActivity.kt
+new file mode 100644
+--- /dev/null	(date 1731056547240)
++++ b/app/src/main/java/com/example/cityartwalkapp/MapsActivity.kt	(date 1731056547240)
+@@ -0,0 +1,48 @@
++package com.example.cityartwalkapp
++
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++
++import com.google.android.gms.maps.CameraUpdateFactory
++import com.google.android.gms.maps.GoogleMap
++import com.google.android.gms.maps.OnMapReadyCallback
++import com.google.android.gms.maps.SupportMapFragment
++import com.google.android.gms.maps.model.LatLng
++import com.google.android.gms.maps.model.MarkerOptions
++import com.example.cityartwalkapp.databinding.ActivityMapsBinding
++
++class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
++
++    private lateinit var mMap: GoogleMap
++    private lateinit var binding: ActivityMapsBinding
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++
++        binding = ActivityMapsBinding.inflate(layoutInflater)
++        setContentView(binding.root)
++
++        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
++        val mapFragment = supportFragmentManager
++            .findFragmentById(R.id.map) as SupportMapFragment
++        mapFragment.getMapAsync(this)
++    }
++
++    /**
++     * Manipulates the map once available.
++     * This callback is triggered when the map is ready to be used.
++     * This is where we can add markers or lines, add listeners or move the camera. In this case,
++     * we just add a marker near Sydney, Australia.
++     * If Google Play services is not installed on the device, the user will be prompted to install
++     * it inside the SupportMapFragment. This method will only be triggered once the user has
++     * installed Google Play services and returned to the app.
++     */
++    override fun onMapReady(googleMap: GoogleMap) {
++        mMap = googleMap
++
++        // Add a marker in Sydney and move the camera
++        val sydney = LatLng(-34.0, 151.0)
++        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
++        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_maps.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_maps.xml b/app/src/main/res/layout/activity_maps.xml
+new file mode 100644
+--- /dev/null	(date 1731056687350)
++++ b/app/src/main/res/layout/activity_maps.xml	(date 1731056687350)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="utf-8"?>
++<fragment xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:map="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/map"
++    android:name="com.google.android.gms.maps.SupportMapFragment"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".MapsActivity" />
++
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1730962737222)
++++ b/.idea/vcs.xml	(date 1730962737222)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: app/src/main/java/com/example/cityartwalkapp/AddEditActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/cityartwalkapp/AddEditActivity.java b/app/src/main/java/com/example/cityartwalkapp/AddEditActivity.java
+new file mode 100644
+--- /dev/null	(date 1731042957636)
++++ b/app/src/main/java/com/example/cityartwalkapp/AddEditActivity.java	(date 1731042957636)
+@@ -0,0 +1,64 @@
++package com.example.cityartwalkapp;
++
++import static com.example.cityartwalkapp.R.*;
++
++import android.os.Bundle;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.ImageView;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++
++public class AddEditActivity extends AppCompatActivity{
++
++    private EditText titleEditText, addressEditText;
++    private Button saveButton, getGpsButton, takePhotoButton;
++    private ImageView imageView;
++
++    @Override
++    protected void onCreate(Bundle saveInstanceState) {
++        super.onCreate(saveInstanceState);
++        setContentView(R.layout.activity_add_edit);
++
++        titleEditText = findViewById(R.id.titleEditText);
++        addressEditText = findViewById(R.id.addressEditText);
++        saveButton = findViewById(R.id.saveButton);
++        getGpsButton = findViewById(R.id.getGpsButton);
++        takePhotoButton = findViewById(id.takePhotoButton);
++        imageView = findViewById(R.id.imageView);
++
++        saveButton.setOnClickListener(v -> saveArtwork());
++        getGpsButton.setOnClickListener(v -> getGpsLocatin());
++        takePhotoButton.setOnClickListener(v -> takePhoto);
++
++        private void saveArtwork() {
++            String title = titleEditText.getText().toString();
++            String address = addressEditText.getText().toString();
++
++
++            if (title.isEmpty() || address.isEmpty()) {
++                System.out.println("Please enter both title and address.");
++            } else {
++                System.out.println("Artwork saved!");
++            }
++        }
++
++        private void getGpsLocation() {
++            System.out.println("Getting GPS location ...");
++        }
++
++        private void takePhoto() {
++            System.out.println("Opening camera!");
++        }
++
++    }
++
++    public EditText getTitleEditText() {
++        return titleEditText;
++    }
++
++    public void setTitleEditText(EditText titleEditText) {
++        this.titleEditText = titleEditText;
++    }
++}
+Index: app/src/main/java/com/example/cityartwalkapp/HelpActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/cityartwalkapp/HelpActivity.java b/app/src/main/java/com/example/cityartwalkapp/HelpActivity.java
+new file mode 100644
+--- /dev/null	(date 1731030116437)
++++ b/app/src/main/java/com/example/cityartwalkapp/HelpActivity.java	(date 1731030116437)
+@@ -0,0 +1,6 @@
++package com.example.cityartwalkapp;
++
++import android.app.Activity;
++
++public class HelpActivity extends Activity {
++}
+Index: app/src/main/res/values/ids.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/ids.xml b/app/src/main/res/values/ids.xml
+new file mode 100644
+--- /dev/null	(date 1731042231142)
++++ b/app/src/main/res/values/ids.xml	(date 1731042231142)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <item name="titleEditText" type="id">titleEdit</item>
++    <item name="addressEditText" type="id">addressedit</item>
++    <item name="takePhotobutton" type="id">takePhotoButton</item>
++</resources>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_add_edit.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_add_edit.xml b/app/src/main/res/layout/activity_add_edit.xml
+new file mode 100644
+--- /dev/null	(date 1731060352281)
++++ b/app/src/main/res/layout/activity_add_edit.xml	(date 1731060352281)
+@@ -0,0 +1,21 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    xmlns:app="http://schemas.android.com/apk/res-auto">
++
++    <EditText
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:id="@+id/titleEditText"
++        android:hint="@string/enter_artwork_title"
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        android:padding="16dp"/>
++
++    <EditText
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+new file mode 100644
+--- /dev/null	(date 1730953406021)
++++ b/.idea/gradle.xml	(date 1730953406021)
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="GradleSettings">
++    <option name="linkedExternalProjectsSettings">
++      <GradleProjectSettings>
++        <option name="externalProjectPath" value="$PROJECT_DIR$" />
++        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
++        <option name="modules">
++          <set>
++            <option value="$PROJECT_DIR$" />
++            <option value="$PROJECT_DIR$/app" />
++          </set>
++        </option>
++        <option name="resolveExternalAnnotations" value="false" />
++      </GradleProjectSettings>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/deploymentTargetSelector.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetSelector.xml b/.idea/deploymentTargetSelector.xml
+new file mode 100644
+--- /dev/null	(date 1731038448994)
++++ b/.idea/deploymentTargetSelector.xml	(date 1731038448994)
+@@ -0,0 +1,27 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="deploymentTargetSelector">
++    <selectionStates>
++      <SelectionState runConfigName="app">
++        <option name="selectionMode" value="DROPDOWN" />
++        <DropdownSelection timestamp="2024-11-07T06:57:49.881708Z">
++          <Target type="DEFAULT_BOOT">
++            <handle>
++              <DeviceId pluginId="LocalEmulator" identifier="path=/Users/sandu/.android/avd/Pixel_3a_API_32.avd" />
++            </handle>
++          </Target>
++        </DropdownSelection>
++        <DialogSelection />
++      </SelectionState>
++      <SelectionState runConfigName="MainActivity">
++        <option name="selectionMode" value="DROPDOWN" />
++      </SelectionState>
++      <SelectionState runConfigName="AddEditActivity">
++        <option name="selectionMode" value="DROPDOWN" />
++      </SelectionState>
++      <SelectionState runConfigName="AddEditActivity (1)">
++        <option name="selectionMode" value="DROPDOWN" />
++      </SelectionState>
++    </selectionStates>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/migrations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/migrations.xml b/.idea/migrations.xml
+new file mode 100644
+--- /dev/null	(date 1730952741934)
++++ b/.idea/migrations.xml	(date 1730952741934)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectMigrations">
++    <option name="MigrateToGradleLocalJavaHome">
++      <set>
++        <option value="$PROJECT_DIR$" />
++      </set>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.name
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.name b/.idea/.name
+new file mode 100644
+--- /dev/null	(date 1730952741812)
++++ b/.idea/.name	(date 1730952741812)
+@@ -0,0 +1,1 @@
++CItyArtWalk App
+\ No newline at end of file

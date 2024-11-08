@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">CItyArtWalk App</string>
+    <string name="newButton">New</string>
+    <string name="helpButton">Help</string>
+    <string name="location_address">Location Address</string>
+    <string name="save">Save</string>
+    <string name="get_gps">Get GPS</string>
+    <string name="new_Button">New</string>
+    <string name="help_Button">Help</string>
+    <string name="artwork_title">Title</string>
+    <string name="save_Button">Save</string>
+    <string name="enter_artwork_title">Enter Artwork Title</string>
+    <string name="google_maps_key">Google map</string>
+    <string name="API_key">AIzaSyDolHXsrALMZUGDfszCuLtpqTMohDDCQiY</string>
+    <string name="title_activity_maps">MapsActivity</string>
+
+
+</resources>
